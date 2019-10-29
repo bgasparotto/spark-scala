@@ -8,8 +8,8 @@ import org.apache.spark.util.LongAccumulator
 import scala.collection.mutable.ArrayBuffer
 
 /** Finds the degrees of separation between two Marvel comic book characters, based
-  * on co-appearances in a comic.
-  */
+ * on co-appearances in a comic.
+ */
 object DegreesOfSeparation {
 
   // The characters we want to find the separation between.
