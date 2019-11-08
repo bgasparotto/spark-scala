@@ -19,13 +19,14 @@ object PurchaseByCustomer {
     Logger.getLogger("org").setLevel(Level.ERROR)
 
     val context = new SparkContext("local[*]", "PurchaseByCustomer")
-    val input = context.textFile("src/main/resources/dataset/orders/customer-orders.csv")
+    val input =
+      context.textFile("src/main/resources/dataset/orders/customer-orders.csv")
 
     val purchaseByCustomer = input
       .map(parseLine)
       .reduceByKey((orderX, orderY) => orderX + orderY)
       .collect()
-      .sortBy(- _._2)
+      .sortBy(-_._2)
 
     purchaseByCustomer.foreach(println)
   }

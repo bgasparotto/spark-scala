@@ -21,7 +21,8 @@ object PopularMoviesNicer {
     // Create a Map of Ints to Strings, and populate it from u.item.
     var movieNames: Map[Int, String] = Map()
 
-    val lines = Source.fromFile("src/main/resources/dataset/ml-100k/u.item").getLines()
+    val lines =
+      Source.fromFile("src/main/resources/dataset/ml-100k/u.item").getLines()
     for (line <- lines) {
       val fields = line.split('|')
       if (fields.length > 1) {
@@ -60,7 +61,8 @@ object PopularMoviesNicer {
     val sortedMovies = flipped.sortByKey()
 
     // Fold in the movie names from the broadcast variable
-    val sortedMoviesWithNames = sortedMovies.map(x => (nameDict.value(x._2), x._1))
+    val sortedMoviesWithNames =
+      sortedMovies.map(x => (nameDict.value(x._2), x._1))
 
     // Collect and print results
     val results = sortedMoviesWithNames.collect()
@@ -69,4 +71,3 @@ object PopularMoviesNicer {
   }
 
 }
-

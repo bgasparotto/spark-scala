@@ -8,8 +8,8 @@ import org.apache.spark.util.LongAccumulator
 import scala.collection.mutable.ArrayBuffer
 
 /** Finds the degrees of separation between two Marvel comic book characters, based
- * on co-appearances in a comic.
- */
+  * on co-appearances in a comic.
+  */
 object DegreesOfSeparation {
 
   // The characters we want to find the separation between.
@@ -19,7 +19,7 @@ object DegreesOfSeparation {
   // We make our accumulator a "global" Option so we can reference it in a mapper later.
   var hitCounter: Option[LongAccumulator] = None
 
-  // Some custom data types 
+  // Some custom data types
   // BFSData contains an array of hero ID connections, the distance, and color.
   type BFSData = (Array[Int], Int, String)
   // A BFSNode has a heroID and the BFSData associated with it.
@@ -55,7 +55,8 @@ object DegreesOfSeparation {
 
   /** Create "iteration 0" of our RDD of BFSNodes */
   def createStartingRdd(sc: SparkContext): RDD[BFSNode] = {
-    val inputFile = sc.textFile("src/main/resources/dataset/marvel-graph/Marvel-graph.txt")
+    val inputFile =
+      sc.textFile("src/main/resources/dataset/marvel-graph/Marvel-graph.txt")
     inputFile.map(convertToBFS)
   }
 
@@ -91,7 +92,8 @@ object DegreesOfSeparation {
         }
 
         // Create our new Gray node for this connection and add it to the results
-        val newEntry: BFSNode = (newCharacterID, (Array(), newDistance, newColor))
+        val newEntry: BFSNode =
+          (newCharacterID, (Array(), newDistance, newColor))
         results += newEntry
       }
 
@@ -99,7 +101,7 @@ object DegreesOfSeparation {
       color = "BLACK"
     }
 
-    // Add the original node back in, so its connections can get merged with 
+    // Add the original node back in, so its connections can get merged with
     // the gray nodes in the reducer.
     val thisEntry: BFSNode = (characterID, (connections, distance, color))
     results += thisEntry
@@ -166,7 +168,7 @@ object DegreesOfSeparation {
     // Create a SparkContext using every core of the local machine
     val sc = new SparkContext("local[*]", "DegreesOfSeparation")
 
-    // Our accumulator, used to signal when we find the target 
+    // Our accumulator, used to signal when we find the target
     // character in our BFS traversal.
     hitCounter = Some(sc.longAccumulator("Hit Counter"))
 
@@ -181,20 +183,22 @@ object DegreesOfSeparation {
       val mapped = iterationRdd.flatMap(bfsMap)
 
       // Note that mapped.count() action here forces the RDD to be evaluated, and
-      // that's the only reason our accumulator is actually updated.  
+      // that's the only reason our accumulator is actually updated.
       println("Processing " + mapped.count() + " values.")
 
       if (hitCounter.isDefined) {
         val hitCount = hitCounter.get.value
         if (hitCount > 0) {
-          println("Hit the target character! From " + hitCount +
-            " different direction(s).")
+          println(
+            "Hit the target character! From " + hitCount +
+              " different direction(s)."
+          )
           return
         }
       }
 
       // Reducer combines data for each character ID, preserving the darkest
-      // color and shortest path.      
+      // color and shortest path.
       iterationRdd = mapped.reduceByKey(bfsReduce)
     }
   }

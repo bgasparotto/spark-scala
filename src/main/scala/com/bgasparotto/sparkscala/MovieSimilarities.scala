@@ -21,7 +21,8 @@ object MovieSimilarities {
     // Create a Map of Ints to Strings, and populate it from u.item.
     var movieNames: Map[Int, String] = Map()
 
-    val lines = Source.fromFile("src/main/resources/dataset/ml-100k/u.item").getLines()
+    val lines =
+      Source.fromFile("src/main/resources/dataset/ml-100k/u.item").getLines()
     for (line <- lines) {
       val fields = line.split('|')
       if (fields.length > 1) {
@@ -102,7 +103,9 @@ object MovieSimilarities {
     val data = sc.textFile("src/main/resources/dataset/ml-100k/u.data")
 
     // Map ratings to key / value pairs: user ID => movie ID, rating
-    val ratings = data.map(l => l.split("\t")).map(l => (l(0).toInt, (l(1).toInt, l(2).toDouble)))
+    val ratings = data
+      .map(l => l.split("\t"))
+      .map(l => (l(0).toInt, (l(1).toInt, l(2).toDouble)))
 
     // Emit every movie rated together by the same user.
     // Self-join to find every combination.
@@ -122,7 +125,8 @@ object MovieSimilarities {
 
     // We now have (movie1, movie2) = > (rating1, rating2), (rating1, rating2) ...
     // Can now compute similarities.
-    val moviePairSimilarities = moviePairRatings.mapValues(computeCosineSimilarity).cache()
+    val moviePairSimilarities =
+      moviePairRatings.mapValues(computeCosineSimilarity).cache()
 
     //Save the results if desired
     //val sorted = moviePairSimilarities.sortByKey()
@@ -137,17 +141,19 @@ object MovieSimilarities {
       val movieID: Int = args(0).toInt
 
       // Filter for movies with this sim that are "good" as defined by
-      // our quality thresholds above     
+      // our quality thresholds above
 
       val filteredResults = moviePairSimilarities.filter(x => {
         val pair = x._1
         val sim = x._2
         (pair._1 == movieID || pair._2 == movieID) && sim._1 > scoreThreshold && sim._2 > coOccurenceThreshold
-      }
-      )
+      })
 
       // Sort by quality score.
-      val results = filteredResults.map(x => (x._2, x._1)).sortByKey(ascending = false).take(10)
+      val results = filteredResults
+        .map(x => (x._2, x._1))
+        .sortByKey(ascending = false)
+        .take(10)
 
       println("\nTop 10 similar movies for " + nameDict(movieID))
       for (result <- results) {
@@ -158,7 +164,9 @@ object MovieSimilarities {
         if (similarMovieID == movieID) {
           similarMovieID = pair._2
         }
-        println(nameDict(similarMovieID) + "\tscore: " + sim._1 + "\tstrength: " + sim._2)
+        println(
+          nameDict(similarMovieID) + "\tscore: " + sim._1 + "\tstrength: " + sim._2
+        )
       }
     }
   }

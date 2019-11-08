@@ -30,7 +30,8 @@ object WordCountBetterSortedFiltered {
     val lowercaseWords = words.map(x => x.toLowerCase())
 
     // Filters out common words in English
-    val commonWordsInput = sc.textFile("src/main/resources/dataset/book/common-english-words.data")
+    val commonWordsInput =
+      sc.textFile("src/main/resources/dataset/book/common-english-words.data")
     val commonWords = commonWordsInput.map(parseCommonWordLine)
     val filteredWords = lowercaseWords.subtract(commonWords)
 
@@ -50,4 +51,3 @@ object WordCountBetterSortedFiltered {
   }
 
 }
-
