@@ -37,4 +37,3 @@ object PopularMovies {
   }
 
 }
-

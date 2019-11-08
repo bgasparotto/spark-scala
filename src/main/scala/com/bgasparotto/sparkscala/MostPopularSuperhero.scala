@@ -17,7 +17,8 @@ object MostPopularSuperhero {
     val fields = line.split('\"') // Splits the line based on the quotation mark
     if (fields.length > 1) {
       Some(fields(0).trim().toInt, fields(1))
-    } else {
+    }
+    else {
       None // flatmap will just discard None results, and extract data from Some results.
     }
   }
@@ -32,7 +33,8 @@ object MostPopularSuperhero {
     val sc = new SparkContext("local[*]", "MostPopularSuperhero")
 
     // Build up a hero ID -> name RDD
-    val names = sc.textFile("src/main/resources/dataset/marvel-graph/Marvel-names.txt")
+    val names =
+      sc.textFile("src/main/resources/dataset/marvel-graph/Marvel-names.txt")
 
     /*
      * Flat map is used because a few lines will be invalid and return None. In that case, the amount of records
@@ -41,7 +43,8 @@ object MostPopularSuperhero {
     val namesRdd = names.flatMap(parseNames)
 
     // Load up the superhero co-apperarance data
-    val lines = sc.textFile("src/main/resources/dataset/marvel-graph/Marvel-graph.txt")
+    val lines =
+      sc.textFile("src/main/resources/dataset/marvel-graph/Marvel-graph.txt")
 
     // Convert to (heroID, number of connections) RDD. All rows will be processed so map is used.
     val pairings = lines.map(countCoOccurrences)
@@ -60,7 +63,9 @@ object MostPopularSuperhero {
     val mostPopularId = mostPopular._2
 
     // Print out our answer!
-    println(s"$mostPopularName (id $mostPopularId) is the most popular superhero with ${mostPopular._1} co-appearances.")
+    println(
+      s"$mostPopularName (id $mostPopularId) is the most popular superhero with ${mostPopular._1} co-appearances."
+    )
 
     // Top 10 most populars
     val tenMostPopular = flipped.sortBy(-_._1).take(10)
