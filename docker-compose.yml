@@ -8,6 +8,9 @@ services:
       - "7077:7077"
     environment:
       - INIT_DAEMON_STEP=setup_spark
+    volumes:
+      - ./src/main/resources:/src/main/resources
+      - ./target/scala-2.11:/app
   spark-worker-1:
     image: bde2020/spark-worker:2.4.4-hadoop2.7
     container_name: spark-worker-1
