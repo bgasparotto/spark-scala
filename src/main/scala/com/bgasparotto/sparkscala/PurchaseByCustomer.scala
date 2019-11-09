@@ -20,7 +20,7 @@ object PurchaseByCustomer {
 
     val context = new SparkContext("local[*]", "PurchaseByCustomer")
     val input =
-      context.textFile("src/main/resources/dataset/orders/customer-orders.csv")
+      context.textFile("dataset/orders/customer-orders.csv")
 
     val purchaseByCustomer = input
       .map(parseLine)

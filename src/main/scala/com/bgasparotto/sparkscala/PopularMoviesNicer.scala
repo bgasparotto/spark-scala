@@ -22,7 +22,7 @@ object PopularMoviesNicer {
     var movieNames: Map[Int, String] = Map()
 
     val lines =
-      Source.fromFile("src/main/resources/dataset/ml-100k/u.item").getLines()
+      Source.fromFile("dataset/ml-100k/u.item").getLines()
     for (line <- lines) {
       val fields = line.split('|')
       if (fields.length > 1) {
@@ -46,7 +46,7 @@ object PopularMoviesNicer {
     val nameDict = sc.broadcast(loadMovieNames())
 
     // Read in each rating line
-    val lines = sc.textFile("src/main/resources/dataset/ml-100k/u.data")
+    val lines = sc.textFile("dataset/ml-100k/u.data")
 
     // Map to (movieID, 1) tuples
     val movies = lines.map(x => (x.split("\t")(1).toInt, 1))

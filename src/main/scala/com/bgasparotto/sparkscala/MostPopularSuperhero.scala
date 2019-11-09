@@ -34,7 +34,7 @@ object MostPopularSuperhero {
 
     // Build up a hero ID -> name RDD
     val names =
-      sc.textFile("src/main/resources/dataset/marvel-graph/Marvel-names.txt")
+      sc.textFile("dataset/marvel-graph/Marvel-names.txt")
 
     /*
      * Flat map is used because a few lines will be invalid and return None. In that case, the amount of records
@@ -44,7 +44,7 @@ object MostPopularSuperhero {
 
     // Load up the superhero co-apperarance data
     val lines =
-      sc.textFile("src/main/resources/dataset/marvel-graph/Marvel-graph.txt")
+      sc.textFile("dataset/marvel-graph/Marvel-graph.txt")
 
     // Convert to (heroID, number of connections) RDD. All rows will be processed so map is used.
     val pairings = lines.map(countCoOccurrences)
