@@ -21,7 +21,7 @@ object WordCountBetterSortedFiltered {
     val sc = new SparkContext("local", "WordCountBetterSortedFiltered")
 
     // Load each line of my book into an RDD
-    val input = sc.textFile("src/main/resources/dataset/book/book.txt")
+    val input = sc.textFile("dataset/book/book.txt")
 
     // Split using a regular expression that extracts words
     val words = input.flatMap(x => x.split("\\W+"))
@@ -31,7 +31,7 @@ object WordCountBetterSortedFiltered {
 
     // Filters out common words in English
     val commonWordsInput =
-      sc.textFile("src/main/resources/dataset/book/common-english-words.data")
+      sc.textFile("dataset/book/common-english-words.data")
     val commonWords = commonWordsInput.map(parseCommonWordLine)
     val filteredWords = lowercaseWords.subtract(commonWords)
 

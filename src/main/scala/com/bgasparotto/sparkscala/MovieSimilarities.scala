@@ -22,7 +22,7 @@ object MovieSimilarities {
     var movieNames: Map[Int, String] = Map()
 
     val lines =
-      Source.fromFile("src/main/resources/dataset/ml-100k/u.item").getLines()
+      Source.fromFile("dataset/ml-100k/u.item").getLines()
     for (line <- lines) {
       val fields = line.split('|')
       if (fields.length > 1) {
@@ -100,7 +100,7 @@ object MovieSimilarities {
     println("\nLoading movie names...")
     val nameDict = loadMovieNames()
 
-    val data = sc.textFile("src/main/resources/dataset/ml-100k/u.data")
+    val data = sc.textFile("dataset/ml-100k/u.data")
 
     // Map ratings to key / value pairs: user ID => movie ID, rating
     val ratings = data
