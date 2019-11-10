@@ -36,7 +36,13 @@
 
 ## Partitioning
 - You would like to have at least as many partitions as the amount of cores * executors/workers.
-- Too few partitions won't take advantage of the cluster, too few creates overhead of shuffling data
+- Too few partitions won't take advantage of the cluster, too few creates overhead of shuffling data.
 - 100 partitions is a safe start for large operations.
 - Use the method `partitionBy(new HashPartitioner(100)` for example;
 - Should be used before running a large operation, like groupBy, reduce, combine, etc.
+
+## Good practices
+- Just use an empty, default SparkConf object in your driver, otherwise it will override other sources.
+- Configuration precedence: script -> command line -> configuration file.
+- YARN is the cluster manager that runs on top of Hadoop.
+- Should use HDFS for exchanging data files and scripts.
