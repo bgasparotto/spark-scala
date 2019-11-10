@@ -46,3 +46,4 @@
 - Configuration precedence: script -> command line -> configuration file.
 - YARN is the cluster manager that runs on top of Hadoop.
 - Should use HDFS for exchanging data files and scripts.
+- The more stages you have, the more data shuffling will happen. Always aim for fewer stages.
