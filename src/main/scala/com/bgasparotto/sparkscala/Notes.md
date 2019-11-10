@@ -15,6 +15,7 @@
 	- map, flatmap, filter, distinct, sample, union, intersection, subtract, cartesian
 	- Once you transformed, you can call an action. Only at this point Spark will execute your instructions:
  	- collect, count, countByValue, take, top, reduce and more...
+- The data files have to be present on each worker if being read directly from the file system.
 
 ## Coding
 - It's a good practise to get rid of the unnecessary data as soon as possible.
