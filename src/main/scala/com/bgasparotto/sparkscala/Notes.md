@@ -33,3 +33,10 @@
 - Better than loading everything in memory, specially if your dataset is massive.
 - Broadcast objects to the executors, such that they are always there whenever needed.
 - sc.broadcast() to broadcast and sc.value() to get it back
+
+## Partitioning
+- You would like to have at least as many partitions as the amount of cores * executors/workers.
+- Too few partitions won't take advantage of the cluster, too few creates overhead of shuffling data
+- 100 partitions is a safe start for large operations.
+- Use the method `partitionBy(new HashPartitioner(100)` for example;
+- Should be used before running a large operation, like groupBy, reduce, combine, etc.
