@@ -48,3 +48,10 @@
 - YARN is the cluster manager that runs on top of Hadoop.
 - Should use HDFS for exchanging data files and scripts.
 - The more stages you have, the more data shuffling will happen. Always aim for fewer stages.
+
+## DataFrames
+- DataFrames are RDDs that contain Row objects;
+- In another words, a DataFrame is a DataSet of Row objects;
+- You can run SQL queries on top of it;
+- The trend is to use more DataSets instead of RDDs wherever possible.
+- On Spark 2+, you create SparkSession instead of SparkContext when using Spark SQL/DataSets.
