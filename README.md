@@ -14,6 +14,11 @@ Run Spark master and worker with docker-compose:
 docker-compose up -d
 ```
 
+(Optional) Scale up the the 'spark-worker' containers:
+```shell script
+docker-compose scale spark-worker=3
+```
+
 ### Running your application from Intellij IDEA:
 Under _Edit Configurations_ of your runnable class, add the following on _VM options:_:
 ```jvm

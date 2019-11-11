@@ -11,13 +11,12 @@ services:
     volumes:
       - ./dataset:/dataset
       - ./target/scala-2.11:/app
-  spark-worker-1:
+  spark-worker:
     image: bde2020/spark-worker:2.4.4-hadoop2.7
-    container_name: spark-worker-1
     depends_on:
       - spark-master
     ports:
-      - "8081:8081"
+      - "8081"
     environment:
       - "SPARK_MASTER=spark://spark-master:7077"
     volumes:
