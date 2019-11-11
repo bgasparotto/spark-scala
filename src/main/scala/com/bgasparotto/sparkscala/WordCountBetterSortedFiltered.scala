@@ -17,8 +17,9 @@ object WordCountBetterSortedFiltered {
     // Set the log level to only print errors
     Logger.getLogger("org").setLevel(Level.ERROR)
 
-    // Create a SparkContext using the local machine
-    val sc = new SparkContext("local", "WordCountBetterSortedFiltered")
+    // Creates a SparkContext
+    val conf = new SparkConf().setAppName("WordCountBetterSortedFiltered")
+    val sc = new SparkContext(conf)
 
     // Load each line of my book into an RDD
     val input = sc.textFile("dataset/book/book.txt")
@@ -30,8 +31,7 @@ object WordCountBetterSortedFiltered {
     val lowercaseWords = words.map(x => x.toLowerCase())
 
     // Filters out common words in English
-    val commonWordsInput =
-      sc.textFile("dataset/book/common-english-words.data")
+    val commonWordsInput = sc.textFile("dataset/book/common-english-words.data")
     val commonWords = commonWordsInput.map(parseCommonWordLine)
     val filteredWords = lowercaseWords.subtract(commonWords)
 

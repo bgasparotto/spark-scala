@@ -18,9 +18,11 @@ object PurchaseByCustomer {
   def main(args: Array[String]) {
     Logger.getLogger("org").setLevel(Level.ERROR)
 
-    val context = new SparkContext("local[*]", "PurchaseByCustomer")
-    val input =
-      context.textFile("dataset/orders/customer-orders.csv")
+    // Creates a SparkContext
+    val conf = new SparkConf().setAppName("PurchaseByCustomer")
+    val context = new SparkContext(conf)
+
+    val input = context.textFile("dataset/orders/customer-orders.csv")
 
     val purchaseByCustomer = input
       .map(parseLine)

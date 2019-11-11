@@ -22,8 +22,9 @@ object MaxTemperatures {
     // Set the log level to only print errors
     Logger.getLogger("org").setLevel(Level.ERROR)
 
-    // Create a SparkContext using every core of the local machine
-    val sc = new SparkContext("local[*]", "MaxTemperatures")
+    // Creates a SparkContext
+    val conf = new SparkConf().setAppName("MaxTemperatures")
+    val sc = new SparkContext(conf)
 
     val lines = sc.textFile("dataset/weather/1800.csv")
     val parsedLines = lines.map(parseLine)
