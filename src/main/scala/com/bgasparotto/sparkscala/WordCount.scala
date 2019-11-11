@@ -12,8 +12,10 @@ object WordCount {
     // Set the log level to only print errors
     Logger.getLogger("org").setLevel(Level.ERROR)
 
-    // Create a SparkContext using every core of the local machine
-    val sc = new SparkContext("local[*]", "WordCount")
+    // Creates a SparkContext
+    val conf = new SparkConf().setAppName("WordCount")
+    val sc = new SparkContext(conf)
+
 
     // Read each line of my book into an RDD
     val input = sc.textFile("dataset/book/book.txt")

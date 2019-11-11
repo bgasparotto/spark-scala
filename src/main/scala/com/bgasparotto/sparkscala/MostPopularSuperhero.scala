@@ -29,8 +29,9 @@ object MostPopularSuperhero {
     // Set the log level to only print errors
     Logger.getLogger("org").setLevel(Level.ERROR)
 
-    // Create a SparkContext using every core of the local machine
-    val sc = new SparkContext("local[*]", "MostPopularSuperhero")
+    // Creates a SparkContext
+    val conf = new SparkConf().setAppName("MostPopularSuperhero");
+    val sc = new SparkContext(conf)
 
     // Build up a hero ID -> name RDD
     val names =

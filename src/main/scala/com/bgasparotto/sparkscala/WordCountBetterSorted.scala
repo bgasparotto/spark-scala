@@ -12,8 +12,9 @@ object WordCountBetterSorted {
     // Set the log level to only print errors
     Logger.getLogger("org").setLevel(Level.ERROR)
 
-    // Create a SparkContext using the local machine
-    val sc = new SparkContext("local", "WordCountBetterSorted")
+    // Creates a SparkContext
+    val conf = new SparkConf().setAppName("WordCountBetterSorted")
+    val sc = new SparkContext(conf)
 
     // Load each line of my book into an RDD
     val input = sc.textFile("dataset/book/book.txt")

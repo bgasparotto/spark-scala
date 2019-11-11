@@ -22,8 +22,9 @@ object MinTemperatures {
     // Set the log level to only print errors
     Logger.getLogger("org").setLevel(Level.ERROR)
 
-    // Create a SparkContext using every core of the local machine
-    val sc = new SparkContext("local[*]", "MinTemperatures")
+    // Creates a SparkContext
+    val conf = new SparkConf().setAppName("MinTemperatures")
+    val sc = new SparkContext(conf)
 
     // Read each line of input data
     val lines = sc.textFile("dataset/weather/1800.csv")

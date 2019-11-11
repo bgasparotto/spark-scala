@@ -165,8 +165,9 @@ object DegreesOfSeparation {
     // Set the log level to only print errors
     Logger.getLogger("org").setLevel(Level.ERROR)
 
-    // Create a SparkContext using every core of the local machine
-    val sc = new SparkContext("local[*]", "DegreesOfSeparation")
+    // Creates a SparkContext
+    val conf = new SparkConf().setAppName("DegreesOfSeparation")
+    val sc = new SparkContext(conf)
 
     // Our accumulator, used to signal when we find the target
     // character in our BFS traversal.

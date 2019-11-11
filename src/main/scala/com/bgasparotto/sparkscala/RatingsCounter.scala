@@ -12,8 +12,9 @@ object RatingsCounter {
     // Set the log level to only print errors
     Logger.getLogger("org").setLevel(Level.ERROR)
 
-    // Create a SparkContext using every core of the local machine, named RatingsCounter
-    val sc = new SparkContext("local[*]", "RatingsCounter")
+    // Creates a SparkContext
+    val conf = new SparkConf().setAppName("RatingsCounter")
+    val sc = new SparkContext(conf)
 
     // Load up each line of the ratings data into an RDD
     val lines = sc.textFile("dataset/ml-100k/u.data")

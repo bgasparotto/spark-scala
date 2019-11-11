@@ -18,8 +18,9 @@ object TotalSpentByCustomerSorted {
     // Set the log level to only print errors
     Logger.getLogger("org").setLevel(Level.ERROR)
 
-    // Create a SparkContext using every core of the local machine
-    val sc = new SparkContext("local[*]", "TotalSpentByCustomerSorted")
+    // Creates a SparkContext
+    val conf = new SparkConf().setAppName("TotalSpentByCustomerSorted")
+    val sc = new SparkContext(conf)
 
     val input =
       sc.textFile("dataset/orders/customer-orders.csv")
