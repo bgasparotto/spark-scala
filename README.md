@@ -25,7 +25,8 @@ Under _Edit Configurations_ of your runnable class, add the following on _VM opt
 -Dspark.master=local[*]
 ```
 
-### Running your application on the cluster with `spark-submit`:
+### Running your application on the cluster:
+Use `spark-submit` of the spark-master node:
 ```shell script
 docker container exec -it spark-master bash ./spark/bin/spark-submit --master spark://spark-master:7077 --class com.bgasparotto.sparkscala.MostPopularSuperhero /app/spark-scala-assembly-0.1.jar
 ```
