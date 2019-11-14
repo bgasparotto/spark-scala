@@ -31,4 +31,5 @@ Use `spark-submit` of the spark-master node:
 docker container exec -it spark-master bash ./spark/bin/spark-submit --master spark://spark-master:7077 --class com.bgasparotto.sparkscala.MostPopularSuperhero /app/spark-scala-assembly-0.1.jar
 ```
 
+### Accessing Spark UI
 Spark UI should be accessible at http://localhost:8080
