@@ -1,10 +1,10 @@
-package com.bgasparotto.sparkscala
+package com.bgasparotto.sparkscala.dataset
 
 import java.nio.charset.CodingErrorAction
 
-import org.apache.log4j._
-import org.apache.spark.sql._
-import org.apache.spark.sql.functions._
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.functions.desc
 
 import scala.io.{Codec, Source}
 
