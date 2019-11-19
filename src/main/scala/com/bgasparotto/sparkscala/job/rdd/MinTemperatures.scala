@@ -1,7 +1,7 @@
-package com.bgasparotto.sparkscala
+package com.bgasparotto.sparkscala.job.rdd
 
-import org.apache.log4j._
-import org.apache.spark._
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.{SparkConf, SparkContext}
 
 import scala.math.min
 

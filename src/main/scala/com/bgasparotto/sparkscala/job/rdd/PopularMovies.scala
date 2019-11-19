@@ -1,7 +1,4 @@
-package com.bgasparotto.sparkscala
-
-import org.apache.log4j._
-import org.apache.spark._
+package com.bgasparotto.sparkscala.job.rdd
 
 /** Find the movies with the most ratings. */
 object PopularMovies {

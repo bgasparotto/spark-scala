@@ -1,12 +1,12 @@
-package com.bgasparotto.sparkscala.dataset
+package com.bgasparotto.sparkscala.job.dataset
 
 import com.bgasparotto.sparkscala.parser.TemperatureParser.parseTemperature
-import org.apache.log4j._
+import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 
-/** Find the maximum temperature by weather station for a year */
-object MaxTemperatures {
+/** Find the minimum temperature by weather station */
+object MinTemperatures {
 
   /** Our main function where the action happens */
   def main(args: Array[String]) {
@@ -15,7 +15,7 @@ object MaxTemperatures {
 
     val session = SparkSession
       .builder()
-      .appName("MaxTemperaturesWithDataSets")
+      .appName("MinTemperaturesWithDataSets")
       .getOrCreate()
     val sparkContext = session.sparkContext
 
@@ -27,10 +27,10 @@ object MaxTemperatures {
 
     dataSet
       .select(col("stationId").as("Station"), col("temperature"))
-      .filter(dataSet("entryType") === "TMAX")
+      .filter(dataSet("entryType") === "TMIN")
       .groupBy("Station")
-      .agg(max(col("temperature")).as("Maximum Temperature"))
-      .orderBy(desc("Maximum Temperature"))
+      .agg(min(col("temperature")).as("Minimum Temperature"))
+      .orderBy(asc("Minimum Temperature"))
       .show()
 
     session.stop()

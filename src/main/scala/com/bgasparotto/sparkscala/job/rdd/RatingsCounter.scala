@@ -1,7 +1,4 @@
-package com.bgasparotto.sparkscala
-
-import org.apache.log4j._
-import org.apache.spark._
+package com.bgasparotto.sparkscala.job.rdd
 
 /** Count up how many of each star rating exists in the MovieLens 100K data set. */
 object RatingsCounter {

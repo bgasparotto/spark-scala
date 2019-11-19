@@ -1,7 +1,4 @@
-package com.bgasparotto.sparkscala
-
-import org.apache.log4j._
-import org.apache.spark._
+package com.bgasparotto.sparkscala.job.rdd
 
 /** Compute the total amount spent per customer in some fake e-commerce data. */
 object TotalSpentByCustomer {

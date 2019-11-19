@@ -1,4 +1,4 @@
-package com.bgasparotto.sparkscala.sql
+package com.bgasparotto.sparkscala.job.sql
 
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession

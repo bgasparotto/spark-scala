@@ -1,7 +1,7 @@
-package com.bgasparotto.sparkscala
+package com.bgasparotto.sparkscala.job.rdd
 
-import org.apache.log4j._
-import org.apache.spark._
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.{SparkConf, SparkContext}
 
 /** Count up how many of each word occurs in a book, using regular expressions. */
 object WordCountBetter {

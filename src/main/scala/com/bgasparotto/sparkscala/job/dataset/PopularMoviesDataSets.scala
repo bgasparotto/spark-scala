@@ -1,4 +1,4 @@
-package com.bgasparotto.sparkscala.dataset
+package com.bgasparotto.sparkscala.job.dataset
 
 import java.nio.charset.CodingErrorAction
 
