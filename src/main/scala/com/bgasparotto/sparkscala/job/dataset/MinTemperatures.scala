@@ -5,12 +5,9 @@ import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 
-/** Find the minimum temperature by weather station */
 object MinTemperatures {
 
-  /** Our main function where the action happens */
   def main(args: Array[String]) {
-
     Logger.getLogger("org").setLevel(Level.ERROR)
 
     val session = SparkSession
@@ -23,7 +20,7 @@ object MinTemperatures {
     val dataSet = sparkContext
       .textFile("dataset/weather/1800.csv")
       .map(parseTemperature)
-      .toDS
+      .toDS()
 
     dataSet
       .select(col("stationId").as("Station"), col("temperature"))
