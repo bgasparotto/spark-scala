@@ -55,3 +55,10 @@
 - You can run SQL queries on top of it;
 - The trend is to use more DataSets instead of RDDs wherever possible.
 - On Spark 2+, you create SparkSession instead of SparkContext when using Spark SQL/DataSets.
+
+## MLLib
+- Very sensitive to the parameters chosen;
+- Don't put your faith on black box solution, it's dodgy. Understand how it works or build your own;
+- When analysing big data, small problems in algorithms become big ones;
+- Very often, quality of the input data is the real issue;
+- Good data always trump fancy algorithms, especially that fancy algorithms aren't always better.
