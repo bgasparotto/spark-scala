@@ -34,18 +34,14 @@ object MovieRecommendationsALS {
 
     // Build the recommendation model using Alternating Least Squares
     println("\nTraining recommendation model...")
-
-    val rank = 8
+    val rank = 8 // Suggested by the course author based on his research
     val numIterations = 10 // Too many iterations can cause StackOverflowError
-
     val model = ALS.train(ratings, rank, numIterations)
 
     val userID = args(0).toInt
 
     println("\nRatings for user ID " + userID + ":")
-
     val userRatings = ratings.filter(x => x.user == userID)
-
     val myRatings = userRatings.collect()
 
     for (rating <- myRatings) {
@@ -53,13 +49,11 @@ object MovieRecommendationsALS {
     }
 
     println("\nTop 10 recommendations:")
-
     val recommendations = model.recommendProducts(userID, 10)
     for (recommendation <- recommendations) {
       println(
         nameDict(recommendation.product.toInt) + " score " + recommendation.rating
       )
     }
-
   }
 }
