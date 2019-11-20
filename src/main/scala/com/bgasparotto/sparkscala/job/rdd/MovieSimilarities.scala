@@ -1,37 +1,12 @@
 package com.bgasparotto.sparkscala.job.rdd
 
-import java.nio.charset.CodingErrorAction
-
+import com.bgasparotto.sparkscala.parser.MovieParser.loadMovieNames
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.{SparkConf, SparkContext}
 
-import scala.io.{Codec, Source}
 import scala.math.sqrt
 
 object MovieSimilarities {
-
-  /** Load up a Map of movie IDs to movie names. */
-  def loadMovieNames(): Map[Int, String] = {
-
-    // Handle character encoding issues:
-    implicit val codec: Codec = Codec("UTF-8")
-    codec.onMalformedInput(CodingErrorAction.REPLACE)
-    codec.onUnmappableCharacter(CodingErrorAction.REPLACE)
-
-    // Create a Map of Ints to Strings, and populate it from u.item.
-    var movieNames: Map[Int, String] = Map()
-
-    val lines =
-      Source.fromFile("dataset/ml-100k/u.item").getLines()
-    for (line <- lines) {
-      val fields = line.split('|')
-      if (fields.length > 1) {
-        movieNames += (fields(0).toInt -> fields(1))
-      }
-    }
-
-    movieNames
-  }
 
   type MovieRating = (Int, Double)
   type UserRatingPair = (Int, (MovieRating, MovieRating))
@@ -99,7 +74,7 @@ object MovieSimilarities {
     val sc = new SparkContext(conf)
 
     println("\nLoading movie names...")
-    val nameDict = loadMovieNames()
+    val nameDict = loadMovieNames("dataset/ml-100k/u.item")
 
     val data = sc.textFile("dataset/ml-100k/u.data")
 

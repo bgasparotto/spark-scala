@@ -1,37 +1,11 @@
 package com.bgasparotto.sparkscala.job.rdd
 
-import java.nio.charset.CodingErrorAction
-
+import com.bgasparotto.sparkscala.parser.MovieParser.loadMovieNames
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.{SparkConf, SparkContext}
 
-import scala.io.{Codec, Source}
-
 /** Find the movies with the most ratings. */
 object PopularMoviesNicer {
-
-  /** Load up a Map of movie IDs to movie names. */
-  def loadMovieNames(): Map[Int, String] = {
-
-    // Handle character encoding issues:
-    implicit val codec: Codec = Codec("UTF-8")
-    codec.onMalformedInput(CodingErrorAction.REPLACE)
-    codec.onUnmappableCharacter(CodingErrorAction.REPLACE)
-
-    // Create a Map of Ints to Strings, and populate it from u.item.
-    var movieNames: Map[Int, String] = Map()
-
-    val lines =
-      Source.fromFile("dataset/ml-100k/u.item").getLines()
-    for (line <- lines) {
-      val fields = line.split('|')
-      if (fields.length > 1) {
-        movieNames += (fields(0).toInt -> fields(1))
-      }
-    }
-
-    movieNames
-  }
 
   /** Our main function where the action happens */
   def main(args: Array[String]) {
@@ -44,7 +18,7 @@ object PopularMoviesNicer {
     val sc = new SparkContext(conf)
 
     // Create a broadcast variable of our ID -> movie name map
-    val nameDict = sc.broadcast(loadMovieNames())
+    val nameDict = sc.broadcast(loadMovieNames("dataset/ml-100k/u.item"))
 
     // Read in each rating line
     val lines = sc.textFile("dataset/ml-100k/u.data")

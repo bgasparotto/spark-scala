@@ -1,6 +1,6 @@
 package com.bgasparotto.sparkscala.job.dataset
 
-import com.bgasparotto.sparkscala.parser.FileParser
+import com.bgasparotto.sparkscala.parser.MovieParser.{loadMovieNames, parseMovie}
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.desc
@@ -8,26 +8,6 @@ import org.apache.spark.sql.functions.desc
 /** Find the movies with the most ratings. */
 object PopularMoviesDataSets {
 
-  /** Load up a Map of movie IDs to movie names. */
-  def loadMovieNames(): Map[Int, String] = {
-    val sourceFile = FileParser.open("dataset/ml-100k/u.item")
-
-    try {
-      sourceFile
-        .getLines()
-        .map(_.split('|'))
-        .filter(_.length > 1)
-        .map(fields => fields(0).toInt -> fields(1))
-        .toMap
-    } finally {
-      sourceFile.close()
-    }
-  }
-
-  // Case class so we can get a column name for our movie ID
-  final case class Movie(movieID: Int)
-
-  /** Our main function where the action happens */
   def main(args: Array[String]) {
 
     // Set the log level to only print errors
@@ -39,13 +19,11 @@ object PopularMoviesDataSets {
       .getOrCreate()
 
     // Read in each rating line and extract the movie ID; construct an RDD of Movie objects.
-    val lines = spark.sparkContext
-      .textFile("dataset/ml-100k/u.data")
-      .map(x => Movie(x.split("\t")(1).toInt))
-
-    // Convert to a DataSet
     import spark.implicits._
-    val moviesDS = lines.toDS()
+    val moviesDS = spark.sparkContext
+      .textFile("dataset/ml-100k/u.data")
+      .map(parseMovie)
+      .toDS() // Convert to a DataSet
 
     // Some SQL-style magic to sort all movies by popularity in one line!
     val topMovieIDs = moviesDS
@@ -69,10 +47,9 @@ object PopularMoviesDataSets {
     val top10 = topMovieIDs.take(10)
 
     // Load up the movie ID -> name map
-    val names = loadMovieNames()
+    val names = loadMovieNames("dataset/ml-100k/u.item")
 
     // Print the results
-    println
     for (result <- top10) {
       // result is just a Row at this point; we need to cast it back.
       // Each row has movieID, count as above.
@@ -82,5 +59,4 @@ object PopularMoviesDataSets {
     // Stop the session
     spark.stop()
   }
-
 }
