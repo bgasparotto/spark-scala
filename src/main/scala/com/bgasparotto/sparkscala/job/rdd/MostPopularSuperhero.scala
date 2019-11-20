@@ -1,5 +1,8 @@
 package com.bgasparotto.sparkscala.job.rdd
 
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.{SparkConf, SparkContext}
+
 /** Find the superhero with the most co-appearances. */
 object MostPopularSuperhero {
 

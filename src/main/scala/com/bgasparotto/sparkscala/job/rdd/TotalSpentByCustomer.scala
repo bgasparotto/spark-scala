@@ -1,5 +1,8 @@
 package com.bgasparotto.sparkscala.job.rdd
 
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.{SparkConf, SparkContext}
+
 /** Compute the total amount spent per customer in some fake e-commerce data. */
 object TotalSpentByCustomer {
 
