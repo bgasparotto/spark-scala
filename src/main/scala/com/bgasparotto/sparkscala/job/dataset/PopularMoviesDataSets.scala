@@ -1,36 +1,27 @@
 package com.bgasparotto.sparkscala.job.dataset
 
-import java.nio.charset.CodingErrorAction
-
+import com.bgasparotto.sparkscala.parser.FileParser
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.desc
-
-import scala.io.{Codec, Source}
 
 /** Find the movies with the most ratings. */
 object PopularMoviesDataSets {
 
   /** Load up a Map of movie IDs to movie names. */
   def loadMovieNames(): Map[Int, String] = {
+    val sourceFile = FileParser.open("dataset/ml-100k/u.item")
 
-    // Handle character encoding issues:
-    implicit val codec: Codec = Codec("UTF-8")
-    codec.onMalformedInput(CodingErrorAction.REPLACE)
-    codec.onUnmappableCharacter(CodingErrorAction.REPLACE)
-
-    // Create a Map of Ints to Strings, and populate it from u.item.
-    var movieNames: Map[Int, String] = Map()
-
-    val lines = Source.fromFile("dataset/ml-100k/u.item").getLines()
-    for (line <- lines) {
-      var fields = line.split('|')
-      if (fields.length > 1) {
-        movieNames += (fields(0).toInt -> fields(1))
-      }
+    try {
+      sourceFile
+        .getLines()
+        .map(_.split('|'))
+        .filter(_.length > 1)
+        .map(fields => fields(0).toInt -> fields(1))
+        .toMap
+    } finally {
+      sourceFile.close()
     }
-
-    movieNames
   }
 
   // Case class so we can get a column name for our movie ID
