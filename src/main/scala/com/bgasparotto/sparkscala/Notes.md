@@ -23,7 +23,7 @@
 ## Spark Internals
 - Spark creates an execution plan for your operation and then divide the steps into:
 	- Stages that can be parallelised, then each stage is split into
-		- Tasks that are distribued into individual nodes in your cluster
+		- Tasks that are distributed into individual nodes in your cluster
 		- Theses tasks are scheduled across your cluster and executed
 		
 ## Key/Values RDDs
