@@ -51,7 +51,8 @@
 
 ## DataFrames
 - DataFrames are RDDs that contain Row objects;
-- In another words, a DataFrame is a DataSet of Row objects;
+- DataFrames and DataSets are the same, in another words, a DataFrame is a DataSet of Row objects;
+- DataFrames is the legacy terminology of Spark, but going forward, the term DataSet will be more popular;
 - You can run SQL queries on top of it;
 - The trend is to use more DataSets instead of RDDs wherever possible.
 - On Spark 2+, you create SparkSession instead of SparkContext when using Spark SQL/DataSets.
@@ -62,3 +63,12 @@
 - When analysing big data, small problems in algorithms become big ones;
 - Very often, quality of the input data is the real issue;
 - Good data always trump fancy algorithms, especially that fancy algorithms aren't always better.
+
+## Linear Regression with Spark
+- Spark streaming uses SGD (Stochastic Gradient Descent) for Linear Regression.
+- SGD is friendlier with multi-dimensional data, e.g. you're trying to predict height and age based based on the input.
+- A model is trained by providing a Tuple of a label (y axis: what you're trying to predict) and a vector of features (x axis: the variables associated to the label).
+- The data has to be scaled down to 0 for training, and scaled up backwards given SGD doesn't handle scaling.
+- Train Test is the technique of testing ML models:
+    1. Randomly split the data into two and use one half to train the model: `DataFrame.randomSplit(Array(0.5, 0.5))`;
+    2. Use the other half to test the model by comparing the model predictions with the actual resulting value.
