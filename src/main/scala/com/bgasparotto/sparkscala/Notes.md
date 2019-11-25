@@ -72,3 +72,9 @@
 - Train Test is the technique of testing ML models:
     1. Randomly split the data into two and use one half to train the model: `DataFrame.randomSplit(Array(0.5, 0.5))`;
     2. Use the other half to test the model by comparing the model predictions with the actual resulting value.
+
+## Spark Streaming (Micro-batch)
+- Doesn't process data one-by-one, but in small chunks (small RDDs, micro-batch) every x time (e.g. every 1 second).
+- Checkpoints to store the state to disk for fault tolerance.
+- Windowed operations allow you to aggregate data of a longer period of time than short batch duration.
+- Let you maintain state of a given arbitrary key.
