@@ -78,3 +78,7 @@
 - Checkpoints to store the state to disk for fault tolerance.
 - Windowed operations allow you to aggregate data of a longer period of time than short batch duration.
 - Let you maintain state of a given arbitrary key.
+- Using DStreams is the old way of streaming in Spark.
+- The new way is called Structured Streaming introduced in Spark 2.
+- Structured Streaming uses DataSets and is real-time instead of micro-batches.
+- The old API (DStreams) is still supported and works, but for new projects prefer Structured Streaming.
