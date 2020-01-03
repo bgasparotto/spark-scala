@@ -82,3 +82,9 @@
 - The new way is called Structured Streaming introduced in Spark 2.
 - Structured Streaming uses DataSets and is real-time instead of micro-batches.
 - The old API (DStreams) is still supported and works, but for new projects prefer Structured Streaming.
+
+## GraphX
+- Vertices and edges structure.
+- Useful for specific tasks such as "connectedness", degree distribution, average path length, triangle counts, etc.
+- Provides the framework Pregel for building the graphs.
+- The API provides the types VertexRDD, EdgeRDD, Graph and Edge.
