@@ -2,6 +2,11 @@
 Repo for sharing my Spark with Scala studies.
 The source code also includes example classes and datasets provided as part as some courses and books materials.
 
+## Stack
+- Scala 2.11.12
+- Spark 2.4.4
+- Java 8
+
 ## Running the project
 Assembly it with SBT
 ```shell script
