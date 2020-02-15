@@ -63,6 +63,7 @@
 - When analysing big data, small problems in algorithms become big ones;
 - Very often, quality of the input data is the real issue;
 - Good data always trump fancy algorithms, especially that fancy algorithms aren't always better.
+- MLLib with RDDs is being deprecated on Spark 3. Only MLLib with dataframes will be available.
 
 ## Linear Regression with Spark
 - Spark streaming uses SGD (Stochastic Gradient Descent) for Linear Regression.
@@ -89,3 +90,12 @@
 - Provides the framework Pregel for building the graphs.
 - The API provides the types VertexRDD, EdgeRDD, Graph and Edge.
 - As for RDDs and dataframes, you should cache() the Graph if you're willing to use it more than once.
+
+## Spark 3
+- Deprecating RDDs;
+- Python 2 not supported anymore;
+- Around 17 times faster with dynamic partitioning pruning and adaptive execution;
+- Integrates with Deep Learning frameworks such as TensorFlow and uses GPUs when available for processing DL;
+- Supports dynamic scaling on Kubernetes;
+- GraphX being replaced by SparkGraph using Cypher query language;
+- ACID support on Data Lakes with Delta Lake;
