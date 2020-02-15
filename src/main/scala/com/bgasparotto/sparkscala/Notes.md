@@ -88,3 +88,4 @@
 - Useful for specific tasks such as "connectedness", degree distribution, average path length, triangle counts, etc.
 - Provides the framework Pregel for building the graphs.
 - The API provides the types VertexRDD, EdgeRDD, Graph and Edge.
+- As for RDDs and dataframes, you should cache() the Graph if you're willing to use it more than once.
